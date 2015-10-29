@@ -1,1 +1,27 @@
-C++: a + b problem++!
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+
+#define MAX 1000010
+
+char sa[MAX], sb[MAX];
+int a[MAX], b[MAX], lena, lenb, i, f[MAX], lenmax;
+
+int main() {
+	scanf("%s%s", sa, sb);
+	lena = strlen(sa); lenb = strlen(sb);
+	memset(a, 0, sizeof(a)); memset(b, 0, sizeof(b));
+	for(i = 1; i <= lena; i++) a[i] = sa[lena - i] - '0';
+	for(i = 1; i <= lenb; i++) b[i] = sb[lenb - i] - '0';
+	memset(f, 0, sizeof(f));
+	lenmax = max(lena, lenb);
+	for(i = 1; i <= lenmax; i++) {
+		f[i + 1] = (a[i] + b[i] + f[i]) / 10;
+		f[i] = (a[i] + b[i] + f[i]) % 10;
+	}
+	if(f[lenmax + 1]) printf("%d", f[lenmax]);
+	for(i = lenmax; i >= 1; i--) printf("%d", f[i]);
+	putchar('\n');
+	return 0;
+}
